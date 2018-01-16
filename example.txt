@@ -1,0 +1,72 @@
+//Single line comment
+
+/* 
+  Multi 
+  line 
+  comment
+*/
+
+goal Simplification : a ^ b ^ c ^ d => b
+proof
+  [a ^ b ^ c ^ d : b];
+  a ^ b ^ c ^ d => b
+end.
+
+goal DeMorgan : ~Exists x {fi}  => All x {~fi}
+proof
+  [ ~Exists x {fi} :
+    [ x0 |
+      [ fi :
+        Exists y {fi};      
+        false
+      ];
+      ~fi
+    ];
+    All x {~fi}
+  ];
+  ~Exists x {fi} => All x {~fi}
+end.
+
+goal Exportation : (a ^ b) => c <=> a => b => c 
+proof
+   [ (a ^ b) => c :
+     [ a : [b : a ^ b ; c]; b => c ];
+     a => b => c
+   ];
+   [ a => b => c :
+     [a ^ b : a ; b; b => c; c];
+     (a ^ b) => c
+   ];
+   (a ^ b) => c <=> a => b => c 
+end.  
+
+axiom: ~(p v q) <=> ~p ^ ~q.
+
+goal ExcludedMiddle : a v ~a
+proof
+  [~(a v ~a) : 
+   ~(a v ~a) <=> ~a ^ ~(~a);
+   ~a ^ ~(~a);
+   ~a; ~(~a); a; 
+   false
+  ];
+  ~(~( a v ~a));
+  a v ~a
+end.
+
+axiom: ~(p => q) <=> p ^ ~q.
+
+goal PeircesLaw : ((p => q) => p) => p
+proof
+  [ (p => q) => p : 
+    [ ~p : 
+      (p => q) v ~(p => q);
+      [ (p => q) : p ; false];
+      [ ~(p => q) : ~(p => q) <=> p ^ ~q; p ^ ~q; p; false];
+      false
+    ];
+    ~(~p);
+    p
+  ];
+  ((p => q) => p) => p
+end.
