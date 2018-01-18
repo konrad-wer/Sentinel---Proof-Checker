@@ -1,2 +1,2 @@
 # Sentinel 
-Proof checker for first order logic written in haskell.
+Proof checker for first order logic written in Haskell.
